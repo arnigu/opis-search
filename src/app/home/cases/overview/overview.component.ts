@@ -16,7 +16,7 @@ export class OverviewComponent implements OnInit {
   constructor(private cases: CasesService) { }
 
   ngOnInit() {
-    console.log('voerview ');
+    console.log('Overview');
   }
 
   query() {
