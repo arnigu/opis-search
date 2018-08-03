@@ -7,10 +7,12 @@ import {
   MatToolbarModule,
   MatExpansionModule,
   MatListModule,
-  MatMenuModule, MatInputModule, MatSortModule, MatDialogModule, MatOptionModule, MatSelectModule, MatTabsModule
+  MatMenuModule, MatInputModule, MatSortModule, MatDialogModule, MatOptionModule, MatSelectModule, MatTabsModule,
 } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatTreeModule } from '@angular/material/tree';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {OverlayModule} from '@angular/cdk/overlay';
 
@@ -34,7 +36,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     ReactiveFormsModule,
     MatSelectModule,
     MatOptionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTreeModule
   ],
   declarations: [],
   exports: [
@@ -55,7 +58,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     ReactiveFormsModule,
     MatSelectModule,
     MatOptionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTreeModule
   ]
 })
 export class SharedModule {
