@@ -1,10 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CasesService } from '@app/modules/core/services/cases/cases.service';
-
-import {NestedTreeControl} from '@angular/cdk/tree';
-import {MatTreeNestedDataSource} from '@angular/material/tree';
-import {BehaviorSubject} from 'rxjs';
-
 
 @Component({
   selector: 'app-overview',
@@ -13,25 +7,13 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class OverviewComponent implements OnInit {
 
-  fullTextSearch: string;
-
   foundResults = 0;
   maxResults = 0;
 
+  columns = ['documentNumber', 'subject', 'responseCount'];
 
-  constructor(private cases: CasesService) { }
+  constructor() { }
 
-  ngOnInit() {
-    console.log('Overview');
-  }
-
-  query() {
-    this.cases.query(this.fullTextSearch).subscribe((data) => {
-      console.log(data);
-      this.maxResults = data.data.maxResults;
-
-      console.log(this.maxResults);
-    });
-  }
+  ngOnInit() {}
 
 }

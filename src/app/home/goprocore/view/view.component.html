@@ -1,0 +1,20 @@
+<app-viewsearch [filter]="filter"></app-viewsearch>
+
+<mat-divider></mat-divider>
+<mat-table #table [dataSource]="dataSource">
+  <!-- Subject Column -->
+  <ng-container *ngFor="let column of loadColumns" matColumnDef="{{column}}">
+    <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
+    <mat-cell *matCellDef="let row"> {{row[column]}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="loadColumns; sticky: true"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: loadColumns;"></mat-row>
+
+</mat-table>
+
+<ng-template #no_results>Enter a search criteria</ng-template>
+
+
+
+

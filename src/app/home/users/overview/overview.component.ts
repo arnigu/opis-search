@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OverviewComponent implements OnInit {
 
-  constructor() { }
+  columns = ['subject', 'loginName', 'email'];
 
-  columns = ['subject', 'documentNumber'];
+  constructor() { }
 
   ngOnInit() {
   }

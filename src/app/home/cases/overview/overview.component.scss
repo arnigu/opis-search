@@ -1,3 +1,15 @@
   .search-form {
     width: 90%;
   }
+
+  ::ng-deep .mat-column-documentNumber {
+    flex: 0 0 120px;
+  }
+
+  ::ng-deep .mat-column-subject {
+    flex: 0 0 350px;
+  }
+
+  ::ng-deep .mat-column-responseCount {
+    flex: 0 0 50px;
+  }

@@ -14,7 +14,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService, private route: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Intercepting');
     if (environment.authmode === 'token') {
       return this.interceptToken(request, next);
     } else if (environment.authmode === 'cookie') {

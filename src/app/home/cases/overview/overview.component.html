@@ -1,7 +1,1 @@
-<mat-form-field class="search-form">
-  <input [(ngModel)]="fullTextSearch" matInput placeholder="Search case" type="text">
-</mat-form-field>
-<button type="button" (click)="query()" mat-raised-button color="primary">Search</button>
-
-<h1>Rows: {{maxResults}}</h1>
-
+<app-view [documentType]="1005" [loadOnDisplay]="true" [loadColumns]="columns"></app-view>

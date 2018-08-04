@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TransportService } from '@app/modules/core/services/transport/transport.service';
+import { QueryService } from '@app/modules/core/services/query/query.service';
 import { DocumentFilter } from '@app/modules/core/models/documentfilter';
 
 import {Observable, throwError} from 'rxjs';
@@ -10,18 +10,16 @@ import {Observable, throwError} from 'rxjs';
 })
 export class CasesService {
 
-  constructor(private trans: TransportService) {}
+  constructor(private querys: QueryService) {}
 
   public query(search?: string): Observable<any> {
-    const filter = new DocumentFilter();
-    filter.documentFormType = 1005;
-    filter.loadColumns = ['_subject', '_documentNumber'];
+    const filter = this.querys.getFilter(1005);
+    filter.loadColumns = ['_subject', '_documentNumber', '_responseCount'];
 
     if (search) {
       filter.fullTextSearch = search;
       filter.dataLoadingOptions = 8;
     }
-
-    return this.trans.post('/Client/Data/View/Query?wrapresults=false', {'id': '', 'filter': JSON.stringify(filter)});
+    return this.querys.query(filter);
   }
 }
