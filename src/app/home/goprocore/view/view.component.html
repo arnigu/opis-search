@@ -1,7 +1,7 @@
 <app-viewsearch [filter]="filter"></app-viewsearch>
-
 <mat-divider></mat-divider>
-<mat-table #table [dataSource]="dataSource">
+<mat-table #table [dataSource]="dataSource"
+           matSort matSortActive="subject" matSortDisableClear matSortDirection="asc">
   <!-- Subject Column -->
   <ng-container *ngFor="let column of loadColumns" matColumnDef="{{column}}">
     <mat-header-cell *matHeaderCellDef> {{column}} </mat-header-cell>
@@ -10,9 +10,9 @@
 
   <mat-header-row *matHeaderRowDef="loadColumns; sticky: true"></mat-header-row>
   <mat-row *matRowDef="let row; columns: loadColumns;"></mat-row>
-
 </mat-table>
-
+<mat-paginator [length]="maxRows" [pageSize]="rowsCount" showFirstLastButtons="true" 
+               (page)="changePage($event)"></mat-paginator>
 <ng-template #no_results>Enter a search criteria</ng-template>
 
 

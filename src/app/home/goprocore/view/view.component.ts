@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter } from '@angular/core';
 import { QueryService } from '@app/modules/core/services/query/query.service';
 import { DocumentFilter } from '@app/modules/core/models/documentfilter';
 
-import {MatTableDataSource} from '@angular/material';
+import {MatTableDataSource, PageEvent} from '@angular/material';
+import {MatPaginator, MatSort} from '@angular/material';
 
 @Component({
   selector: 'app-view',
@@ -14,11 +15,18 @@ export class ViewComponent implements OnInit {
   @Input() documentType: number;
   @Input() loadOnDisplay = false;
   @Input() loadColumns = [];
+  @Input() sortColumn : string;
+  @Input() sortDescending : boolean;
+  @Input() public rowsCount : number;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   filter: DocumentFilter;
 
 
   rows: any[] = [];
-  maxRows: number;
+  maxRows: number;  
 
   dataSource = new MatTableDataSource(this.rows);
 
@@ -27,6 +35,9 @@ export class ViewComponent implements OnInit {
   ngOnInit() {
     this.filter = this.query.getFilter(this.documentType);
     this.filter.loadColumns = this.loadColumns;
+    this.filter.sortColumn = this.sortColumn || this.filter.sortColumn;
+    this.filter.sortDescending = this.sortDescending != null ? this.sortDescending : this.filter.sortDescending;
+    this.filter.rowsCount = this.rowsCount || this.filter.rowsCount;
     if ( this.loadOnDisplay ) {
       this.loadData();
     }
@@ -44,6 +55,11 @@ export class ViewComponent implements OnInit {
 
       this.dataSource.data = this.rows;
     });
+  }
+
+  changePage(pageEvent: PageEvent){
+    this.filter.startRow = pageEvent.pageIndex * pageEvent.pageSize;
+    this.loadData();
   }
 
 }

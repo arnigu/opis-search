@@ -24,4 +24,11 @@ export class ViewSearchComponent implements OnInit {
     this.viewComp.loadData();
   }
 
+  clear () {
+    this.filter.fullTextSearch = '';
+    this.filter.dataLoadingOptions = 0;
+    this.viewComp.loadData();
+  }
+
+
 }

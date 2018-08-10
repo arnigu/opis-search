@@ -20,6 +20,9 @@ export class CasesService {
       filter.fullTextSearch = search;
       filter.dataLoadingOptions = 8;
     }
+
+    filter.sortColumn = 'score';
+    console.log(filter);
     return this.querys.query(filter);
   }
 }

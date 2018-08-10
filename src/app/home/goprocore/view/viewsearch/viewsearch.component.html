@@ -1,7 +1,9 @@
 <div class="search-form">
   <mat-form-field>
-    <input [(ngModel)]="filter.fullTextSearch" matInput placeholder="Search {{filter.documentFormType}}" type="text" (keyup.enter)="search()"
-      (click)="$event.target.select()">
+    <input [(ngModel)]="filter.fullTextSearch" matInput placeholder="Search {{filter.documentFormType}}" type="text" 
+    (keyup.enter)="search()" (keyup.esc)="clear()"
+           (click)="$event.target.select()">
   </mat-form-field>
   <button type="button" (click)="search()" mat-raised-button color="primary" [disabled]="!(filter && filter.fullTextSearch)">Search</button>
+  <button type="button" (click)="clear()" mat-raised-button [disabled]="!(filter && filter.fullTextSearch)">Clear</button>
 </div>
