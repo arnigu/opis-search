@@ -15,9 +15,9 @@ export class ViewComponent implements OnInit {
   @Input() documentType: number;
   @Input() loadOnDisplay = false;
   @Input() loadColumns = [];
-  @Input() sortColumn : string;
-  @Input() sortDescending : boolean;
-  @Input() public rowsCount : number;
+  @Input() sortColumn: string;
+  @Input() sortDescending: boolean;
+  @Input() public rowsCount: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -26,7 +26,7 @@ export class ViewComponent implements OnInit {
 
 
   rows: any[] = [];
-  maxRows: number;  
+  maxRows: number;
 
   dataSource = new MatTableDataSource(this.rows);
 
@@ -57,7 +57,7 @@ export class ViewComponent implements OnInit {
     });
   }
 
-  changePage(pageEvent: PageEvent){
+  changePage(pageEvent: PageEvent) {
     this.filter.startRow = pageEvent.pageIndex * pageEvent.pageSize;
     this.loadData();
   }

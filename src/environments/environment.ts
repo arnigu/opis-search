@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   authmode: 'token',
-  baseUrl: 'https://opis.gopro.net/hekla/api'
+  baseUrl: 'https://rio.gopro.net/GoPro/api'
 };
 
 /*

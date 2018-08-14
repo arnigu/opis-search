@@ -10,7 +10,7 @@ export class OverviewComponent implements OnInit {
   foundResults = 0;
   maxResults = 0;
 
-  columns = ['documentNumber', 'subject', 'responseCount'];
+  columns = ['documentNumber', 'subject', 'deadline'];
 
   constructor() { }
 
