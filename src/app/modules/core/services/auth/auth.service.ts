@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Credentials } from '../../models/credentials';
-import {TransportService} from '../transport/transport.service';
+import { TransportService } from '../transport/transport.service';
 
 import {Observable} from 'rxjs';
 

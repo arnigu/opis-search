@@ -13,6 +13,8 @@ export class OverviewComponent implements OnInit {
   columns = ['documentNumber', 'subject', 'deadline', 'creationDate',
              '_responsibleEmployee[UserRefType]._name', '_coResponsibleEmployees[UserRefType]._name'];
 
+  customFilter: any = undefined;
+
   constructor() { }
 
   ngOnInit() { }

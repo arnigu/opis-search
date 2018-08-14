@@ -10,17 +10,19 @@ import { Router } from '../../../node_modules/@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-
+  username: string;
+  password: string;
 
   constructor(private auth: AuthService, private router: Router) { }
+
 
   ngOnInit() {
   }
 
   login() {
     const creds = new Credentials();
-    creds.username = 'arnigu';
-    creds.password = 'gopro';
+    creds.username = this.username;
+    creds.password = this.password;
     this.auth.login(creds).subscribe((res) => {
       this.router.navigate(['/home']);
     });

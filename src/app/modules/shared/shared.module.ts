@@ -8,7 +8,9 @@ import {
   MatExpansionModule,
   MatListModule,
   MatMenuModule, MatInputModule, MatSortModule, MatDialogModule, MatOptionModule, MatSelectModule, MatTabsModule,
-  MatPaginatorModule
+  MatCardModule,
+  MatPaginatorModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
@@ -39,7 +41,9 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatOptionModule,
     MatTabsModule,
     MatTreeModule,
-    MatPaginatorModule
+    MatCardModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   declarations: [],
   exports: [
@@ -62,7 +66,9 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatOptionModule,
     MatTabsModule,
     MatTreeModule,
-    MatPaginatorModule
+    MatCardModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ]
 })
 export class SharedModule {
