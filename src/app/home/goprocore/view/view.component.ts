@@ -62,9 +62,9 @@ export class ViewComponent implements OnInit {
     this.loadData();
   }
 
-  sortData(sortInfo: Sort){
+  sortData(sortInfo: Sort) {
     this.filter.sortColumn = sortInfo.active;
-    this.filter.sortDescending = (sortInfo.direction === "desc")
+    this.filter.sortDescending = (sortInfo.direction === 'desc');
     this.filter.startRow = 0;
     this.loadData();
   }
