@@ -1,0 +1,12 @@
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+    padding: 10px;
+    
+}
+.column:not(:first-of-type){
+    border-left: 2px solid black;        
+}

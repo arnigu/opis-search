@@ -7,6 +7,9 @@ import { CoreModule } from '@app/modules/core/core.module';
 import { HttpClientModule } from '../../node_modules/@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { registerLocaleData } from '@angular/common';
+import localeIs from '@angular/common/locales/is';
+import localeFr from '@angular/common/locales/fr';
 
 @NgModule({
   declarations: [
@@ -23,4 +26,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+  constructor(){
+    // the second parameter 'fr' is optional
+    registerLocaleData(localeIs);
+    registerLocaleData(localeFr);
+  }
+
+ }

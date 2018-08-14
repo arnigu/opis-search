@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild, EventEmitter } from '@angular/core
 import { QueryService } from '@app/modules/core/services/query/query.service';
 import { DocumentFilter } from '@app/modules/core/models/documentfilter';
 
-import {MatTableDataSource, PageEvent} from '@angular/material';
+import {MatTableDataSource, PageEvent, Sort} from '@angular/material';
 import {MatPaginator, MatSort} from '@angular/material';
 
 @Component({
@@ -59,6 +59,13 @@ export class ViewComponent implements OnInit {
 
   changePage(pageEvent: PageEvent){
     this.filter.startRow = pageEvent.pageIndex * pageEvent.pageSize;
+    this.loadData();
+  }
+
+  sortData(sortInfo: Sort){
+    this.filter.sortColumn = sortInfo.active;
+    this.filter.sortDescending = (sortInfo.direction === "desc")
+    this.filter.startRow = 0;
     this.loadData();
   }
 
