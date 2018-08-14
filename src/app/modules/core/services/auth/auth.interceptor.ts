@@ -6,12 +6,12 @@ import { tap } from 'rxjs/operators';
 import { environment } from '@env/environment';
 
 import { AuthService } from './auth.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthService, private route: Router) { }
+  constructor(private auth: AuthService, private route: Router, private activeRoute: ActivatedRoute) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (environment.authmode === 'token') {
@@ -42,6 +42,8 @@ export class AuthInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
+          console.log('Active', this.activeRoute.snapshot['_routerState'].url);
+
           this.route.navigate(['/login']);
         }
       }
@@ -72,6 +74,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
+          console.log('Active', this.activeRoute.snapshot['_routerState'].url);
           this.route.navigate(['/login']);
         }
       }

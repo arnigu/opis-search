@@ -10,10 +10,11 @@ export class OverviewComponent implements OnInit {
   foundResults = 0;
   maxResults = 0;
 
-  columns = ['documentNumber', 'subject', 'deadline', 'creationDate'];
+  columns = ['documentNumber', 'subject', 'deadline', 'creationDate',
+             '_responsibleEmployee[UserRefType]._name', '_coResponsibleEmployees[UserRefType]._name'];
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 }

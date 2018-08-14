@@ -13,6 +13,8 @@ export class DocumentFilter {
    public fullTextSearch: string;
    public dataLoadingOptions = 0;
 
+   public customFilter: any;
+
 
    //
    // Create it

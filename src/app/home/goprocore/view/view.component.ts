@@ -18,6 +18,8 @@ export class ViewComponent implements OnInit {
   @Input() sortColumn: string;
   @Input() sortDescending: boolean;
   @Input() public rowsCount: number;
+  @Input() customFilter: any = undefined;
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -38,12 +40,20 @@ export class ViewComponent implements OnInit {
     this.filter.sortColumn = this.sortColumn || this.filter.sortColumn;
     this.filter.sortDescending = this.sortDescending != null ? this.sortDescending : this.filter.sortDescending;
     this.filter.rowsCount = this.rowsCount || this.filter.rowsCount;
+    if (this.customFilter) {
+      this.filter.customFilter = this.customFilter;
+    }
     if ( this.loadOnDisplay ) {
       this.loadData();
     }
   }
 
-  public loadData() {
+  public loadData(resetPages?: boolean) {
+
+    if (resetPages) {
+      this.paginator.firstPage();
+    }
+
     this.query.query(this.filter).subscribe((result) => {
       this.rows = result.data.rows;
       this.maxRows = result.data.maxResults;
@@ -68,5 +78,4 @@ export class ViewComponent implements OnInit {
     this.filter.startRow = 0;
     this.loadData();
   }
-
 }

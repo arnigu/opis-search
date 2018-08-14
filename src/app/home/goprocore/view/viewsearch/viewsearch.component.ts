@@ -21,13 +21,13 @@ export class ViewSearchComponent implements OnInit {
 
   search () {
     this.filter.dataLoadingOptions = 8;
-    this.viewComp.loadData();
+    this.viewComp.loadData(true);
   }
 
   clear () {
     this.filter.fullTextSearch = '';
     this.filter.dataLoadingOptions = 0;
-    this.viewComp.loadData();
+    this.viewComp.loadData(true);
   }
 
 

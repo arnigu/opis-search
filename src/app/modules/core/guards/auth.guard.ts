@@ -15,6 +15,8 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const url: string = state.url; /* Pass this on to the context - to make returnUrl possible for deep links */
 
+    console.log('Url', url);
+
     //
     // Investigate if login is correct
     return this.isLoggedIn(url);
