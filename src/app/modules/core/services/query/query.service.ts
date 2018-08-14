@@ -6,6 +6,7 @@ import { DocumentFilter } from '@app/modules/core/models/documentfilter';
 import {Observable, throwError} from 'rxjs';
 
 import { map } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,8 @@ export class QueryService {
           for (let i = 0; i < row.columnValues.length; i++) {
             const val = row.columnValues[i];
             if (QueryService.ISO_CHECK.test(val)) {
-              row.values[result.metaInfo.columns[i].name] = new Date(val);
+              var datePipe = new DatePipe('is');
+                  row.values[result.metaInfo.columns[i].name] = datePipe.transform(new Date(val), 'shortDate');
             } else {
               row.values[result.metaInfo.columns[i].name] = val;
             }
