@@ -1,7 +1,9 @@
+<h2>Cases</h2>
 <app-view [documentType]="1005" [loadOnDisplay]="true" [loadColumns]="columns" 
-          [rowsCount]="2"
-          [sortColumn]="'deadline'" [sortDescending]="true"></app-view>
+          [rowsCount]="10"
+          [sortColumn]="'creationDate'" [sortDescending]="true"></app-view>
 
+<h2>Tasks</h2>
 <app-view [documentType]="500" [loadOnDisplay]="true" [loadColumns]="['subject', 'deadline']" 
           [rowsCount]="50"
           [sortColumn]="'deadline'" [sortDescending]="true"></app-view>
