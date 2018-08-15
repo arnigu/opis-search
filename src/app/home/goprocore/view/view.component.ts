@@ -12,6 +12,7 @@ import {MatPaginator, MatSort} from '@angular/material';
 })
 export class ViewComponent implements OnInit {
 
+  @Input() title: string;
   @Input() documentType: number;
   @Input() loadOnDisplay = false;
   @Input() loadColumns = [];

@@ -2,6 +2,8 @@ export class DocumentFilter {
    private _type = 'DocumentFilterType';
    public documentFormType = 1002;
 
+   public subject: string;
+
    public startRow = 0;
    public rowsCount = 20;
 

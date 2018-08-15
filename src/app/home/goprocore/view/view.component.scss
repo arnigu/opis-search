@@ -1,4 +1,19 @@
 mat-table{
     height: 600px;
     overflow: auto;
-  }
+}
+
+.search{
+  display:flex;
+  align-items: center;
+}
+
+.search>span{
+  padding-right:25px;
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.search>app-viewsearch{
+  flex:1;
+}
