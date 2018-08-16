@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '@app/modules/core/services/auth/auth.service';
 import { Credentials } from '@app/modules/core/models/credentials';
-import { Router } from '../../../node_modules/@angular/router';
+import { Router, ActivatedRoute, Params } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +10,27 @@ import { Router } from '../../../node_modules/@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password: string;
+  @ViewChild ('user') userInput: ElementRef;
+  @ViewChild ('pass') passwordInput: ElementRef;
+
+  returnUrl: undefined;
+
+  username = '';
+  password = '';
 
   errormessage: string;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(private auth: AuthService, private route: ActivatedRoute, private router: Router) { }
 
 
   ngOnInit() {
+        // read returnUrl from queryParameters if available
+        this.route.queryParams.subscribe((qParams: Params) => {
+          this.returnUrl = qParams['returnUrl'];
+        });
+        this.setFocus();
   }
+
 
   login() {
     this.errormessage = undefined;
@@ -27,10 +38,23 @@ export class LoginComponent implements OnInit {
     creds.username = this.username;
     creds.password = this.password;
     this.auth.login(creds).subscribe((res) => {
-      this.router.navigate(['/home']);
+      this.router.navigate([this.returnUrl || '/home']);
     }, (err) => {
-      this.errormessage = err.error;
+
+      console.log(err);
+      this.password = '';
+      this.setFocus();
+      this.errormessage = err.status > 400 ? err.error : 'Connection error';
     });
+  }
+
+  private setFocus() {
+    if (this.username.length === 0) {
+      this.userInput.nativeElement.focus();
+    } else {
+      console.log('focus pass');
+      this.passwordInput.nativeElement.focus();
+    }
   }
 
 }

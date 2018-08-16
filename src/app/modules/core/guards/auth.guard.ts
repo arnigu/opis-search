@@ -33,7 +33,6 @@ export class AuthGuard implements CanActivate {
      catchError((err) => {
        const deepLink = returnUrl ? {returnUrl: returnUrl} : {};
        this.router.navigate(['/login'], {queryParams: deepLink});
-       console.log('No way');
        /* Direct to login page */
        return of(false);
      })
