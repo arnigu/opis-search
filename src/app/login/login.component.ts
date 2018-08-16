@@ -13,6 +13,8 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
 
+  errormessage: string;
+
   constructor(private auth: AuthService, private router: Router) { }
 
 
@@ -20,11 +22,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.errormessage = undefined;
     const creds = new Credentials();
     creds.username = this.username;
     creds.password = this.password;
+    console.log('Loggin in');
     this.auth.login(creds).subscribe((res) => {
       this.router.navigate(['/home']);
+    }, (err) => {
+      this.errormessage = err.error;
     });
   }
 
