@@ -42,8 +42,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
-          console.log('Active', this.activeRoute.snapshot['_routerState'].url);
-
           this.route.navigate(['/login']);
         }
       }
@@ -74,7 +72,6 @@ export class AuthInterceptor implements HttpInterceptor {
     }, (err: any) => {
       if (err instanceof HttpErrorResponse) {
         if (err.status === 401) {
-          console.log('Active', this.activeRoute.snapshot['_routerState'].url);
           this.route.navigate(['/login']);
         }
       }

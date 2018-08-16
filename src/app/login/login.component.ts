@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
     const creds = new Credentials();
     creds.username = this.username;
     creds.password = this.password;
-    console.log('Loggin in');
     this.auth.login(creds).subscribe((res) => {
       this.router.navigate(['/home']);
     }, (err) => {
