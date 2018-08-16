@@ -1,3 +1,8 @@
+<mat-menu #profileMenu>
+    <button mat-menu-item>Profile</button>
+    <button mat-menu-item (click)="logout()">Logout</button>
+</mat-menu>
+
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav
     #drawer
@@ -23,10 +28,13 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>GoPro Opis Search</span>
+      <span>Opis Search</span>
       <span class="spacer"></span>
-      <span>{{username}} &nbsp;&nbsp;</span>
-      <button mat-stroked-button (click)="logout()">Logout</button>
+      <span *ngIf="!(isHandset$ | async)">{{username}} &nbsp;&nbsp;</span>
+      <button *ngIf="!(isHandset$ | async)" mat-stroked-button (click)="logout()">Logout</button>
+      <button *ngIf="(isHandset$ | async)" mat-icon-button [matMenuTriggerFor]="profileMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
     </mat-toolbar>
     <!-- Add Content Here -->
     <div class="content">

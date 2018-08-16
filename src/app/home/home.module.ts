@@ -8,6 +8,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
          MatListModule, MatFormFieldModule, MatInputModule
        } from '@angular/material';
+import { SharedModule } from '@app/modules/shared/shared.module';
 
 
 @NgModule({
@@ -15,13 +16,7 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule,
     CommonModule,
     HomeRoutingModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule
+    SharedModule
   ],
   declarations: [HomeComponent, HomeNavComponent]
 })
