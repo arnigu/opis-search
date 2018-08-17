@@ -28,7 +28,8 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Opis Search</span>
+      <span *ngIf="!(isHandset$ | async)">{{systemName}} Playground</span>
+      <span *ngIf="(isHandset$ | async)">{{systemName}}</span>
       <span class="spacer"></span>
       <span *ngIf="!(isHandset$ | async)">{{username}} &nbsp;&nbsp;</span>
       <button *ngIf="!(isHandset$ | async)" mat-stroked-button (click)="logout()">Logout</button>

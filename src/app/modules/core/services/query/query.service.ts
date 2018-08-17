@@ -44,9 +44,10 @@ export class QueryService {
     }));
   }
 
-  public getFilter(docType?: number): DocumentFilter {
+  public getFilter(docType?: number, customFilter?: any): DocumentFilter {
     const filter = new DocumentFilter();
     filter.documentFormType = docType || 1001;
+    filter.customFilter = customFilter;
     return filter;
   }
 }

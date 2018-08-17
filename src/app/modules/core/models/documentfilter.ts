@@ -29,8 +29,12 @@ export class BinaryFilterExpression {
     constructor(propertyName: string, operator: number, value: any) {
         this.propertyName = propertyName;
         this.operator = operator;
-        this.value = value;
-        this.inValues = value;
+
+        if (value && value.constructor === Array) {
+            this.inValues = value;
+        } else{
+            this.value = value;
+        }
     }
 
     public propertyName: string;
