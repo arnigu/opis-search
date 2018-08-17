@@ -51,6 +51,13 @@ export class ViewComponent implements OnInit {
 
   public loadData(resetPages?: boolean) {
 
+    if (this.customFilter && Object.keys(this.customFilter).length) {
+      this.filter.customFilter = this.customFilter;
+    } else {
+      delete this.filter['customFilter'];
+    }
+
+
     if (resetPages) {
       this.paginator.firstPage();
     }

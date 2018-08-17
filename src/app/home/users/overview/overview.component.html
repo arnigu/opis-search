@@ -1,4 +1,4 @@
-<app-view [documentType]="1017" [loadOnDisplay]="true" [loadColumns]="columns" sortColumn="subject" sortDescending="false" rowsCount="10">
+<app-view [documentType]="1017" [loadOnDisplay]="true" [loadColumns]="columns" sortColumn="subject" sortDescending="false" rowsCount="10" [customFilter]="customFilter">
     <div class="userfilters">
         <mat-form-field>
             <mat-select placeholder="Role" (selectionChange)="roleChange($event)">

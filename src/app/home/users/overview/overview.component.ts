@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { QueryService } from '@app/modules/core/services/query/query.service';
 import { MatSelectChange } from '../../../../../node_modules/@angular/material';
+import { ViewComponent } from '@app/home/goprocore/view/view.component';
+import { BinaryFilterExpression } from '@app/modules/core/models/documentfilter';
 
 @Component({
   selector: 'app-overview',
@@ -9,7 +11,13 @@ import { MatSelectChange } from '../../../../../node_modules/@angular/material';
 })
 export class OverviewComponent implements OnInit {
 
+  @ViewChild(ViewComponent) child: ViewComponent;
+
   columns = ['subject', 'loginName', 'email'];
+
+  rolesFilter = new BinaryFilterExpression('_userRoles[UserRoleRefType]._ID', 6, null);
+  orgsFilter  = new BinaryFilterExpression('_organizationUnit[ACLDocumentRefType]._ID', 0, null);
+
   customFilter: any = {};
 
   roles: any[];
@@ -24,18 +32,45 @@ export class OverviewComponent implements OnInit {
 
   roleChange(evt: MatSelectChange) {
     if (!evt.value) {
-
+      this.rolesFilter.value = null;
+      this.rolesFilter.inValues = null;
     } else {
-
+      this.rolesFilter.inValues = [evt.value];
     }
+    this.applyCustomFilters();
   }
 
   orgChange(evt: MatSelectChange) {
     if (!evt.value) {
-
+      this.orgsFilter.value = null;
+      this.orgsFilter.inValues = null;
     } else {
-
+      this.orgsFilter.value = evt.value;
+      this.orgsFilter.inValues = [evt.value];
     }
+    this.applyCustomFilters();
+  }
+
+  private applyCustomFilters() {
+    const andList = {'_type': 'ConjunctionListType', 'elements': []};
+
+    if (this.rolesFilter.inValues != null) {
+      andList.elements.push(this.rolesFilter);
+    }
+    if (this.orgsFilter.value != null) {
+      andList.elements.push(this.orgsFilter);
+    }
+    if (andList.elements.length > 0) {
+      this.customFilter['_type'] =  'ConjunctionListType';
+      this.customFilter['elements'] = andList.elements;
+    } else {
+      //
+      // Clearing
+      for (const prop of Object.keys(this.customFilter)) {
+        delete this.customFilter[prop];
+      }
+    }
+    this.child.loadData(true);
   }
 
   private updateRoles() {
