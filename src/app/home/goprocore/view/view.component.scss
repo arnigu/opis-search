@@ -3,17 +3,22 @@ mat-table{
     overflow: auto;
 }
 
-.search{
+.viewbar{
   display:flex;
   align-items: center;
 }
 
-.search>span{
+.viewbar>span{
   padding-right:25px;
   font-size: 120%;
   font-weight: bold;
+  
 }
 
-.search>app-viewsearch{
+.search{
+  display: flex;
+  flex-direction: column;
   flex:1;
 }
+
+

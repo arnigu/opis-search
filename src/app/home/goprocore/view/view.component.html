@@ -1,7 +1,13 @@
-<div class="search">
-<span *ngIf="title">{{title}}</span>
-<app-viewsearch [filter]="filter"></app-viewsearch>
+<div class="viewbar">
+  <span *ngIf="title">{{title}}</span>
+  <div class="search">
+    <app-viewsearch [filter]="filter"></app-viewsearch>
+    <div class="customSearch">
+      <ng-content></ng-content>
+    </div>
+  </div>
 </div>
+
 <mat-table #table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
   <!-- Subject Column -->
   <ng-container *ngFor="let column of loadColumns" matColumnDef="{{column}}">

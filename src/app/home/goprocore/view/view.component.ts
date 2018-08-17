@@ -41,7 +41,7 @@ export class ViewComponent implements OnInit {
     this.filter.sortColumn = this.sortColumn || this.filter.sortColumn;
     this.filter.sortDescending = this.sortDescending != null ? this.sortDescending : this.filter.sortDescending;
     this.filter.rowsCount = this.rowsCount || this.filter.rowsCount;
-    if (this.customFilter) {
+    if (this.customFilter && Object.keys(this.customFilter).length) {
       this.filter.customFilter = this.customFilter;
     }
     if ( this.loadOnDisplay ) {

@@ -18,7 +18,8 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: './users/users.module#UsersModule'
-      }
+      },
+      { path: '', redirectTo: '/cases', pathMatch: 'full' },
     ]
   }
 ];
