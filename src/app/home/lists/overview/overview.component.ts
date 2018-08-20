@@ -10,7 +10,7 @@ export class OverviewComponent implements OnInit {
 
   @ViewChild(ViewComponent) child: ViewComponent;
 
-  columns = ['subject'];
+  columns = ['subject', 'key', 'description'];
   constructor() { }
 
   ngOnInit() {
