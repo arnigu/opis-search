@@ -7,6 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # Checkout and build
 
     git clone git@github.com:arnigu/opis-search.git
+    cd opis-search
     npm install
     npm start
 
