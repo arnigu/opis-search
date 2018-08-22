@@ -33,8 +33,8 @@ export class QueryService {
           for (let i = 0; i < row.columnValues.length; i++) {
             const val = row.columnValues[i];
             if (QueryService.ISO_CHECK.test(val)) {
-              var datePipe = new DatePipe('is');
-                  row.values[result.metaInfo.columns[i].name] = datePipe.transform(new Date(val), 'shortDate');
+              const datePipe = new DatePipe('is');
+              row.values[result.metaInfo.columns[i].name] = datePipe.transform(new Date(val), 'short');
             } else {
               row.values[result.metaInfo.columns[i].name] = val;
             }
