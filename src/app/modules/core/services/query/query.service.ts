@@ -33,10 +33,10 @@ export class QueryService {
           for (let i = 0; i < row.columnValues.length; i++) {
             const val = row.columnValues[i];
             if (QueryService.ISO_CHECK.test(val)) {
-              const datePipe = new DatePipe('is');
-              row.values[result.metaInfo.columns[i].name] = datePipe.transform(new Date(val), 'short');
+              const datePipe = new DatePipe('is');             
+              row.values[result.metaInfo.columns[i].mappedObjectName] = datePipe.transform(new Date(val), 'short');
             } else {
-              row.values[result.metaInfo.columns[i].name] = val;
+              row.values[result.metaInfo.columns[i].mappedObjectName] = val;
             }
           }
         }

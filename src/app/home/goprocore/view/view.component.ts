@@ -27,11 +27,12 @@ export class ViewComponent implements OnInit {
 
   filter: DocumentFilter;
 
-
   rows: any[] = [];
   maxRows: number;
 
   dataSource = new MatTableDataSource(this.rows);
+
+  selectedRowId: string = undefined;
 
   constructor(private query: QueryService) { }
 
@@ -50,7 +51,7 @@ export class ViewComponent implements OnInit {
   }
 
   public loadData(resetPages?: boolean) {
-
+    this.selectedRowId = undefined;
     if (this.customFilter && Object.keys(this.customFilter).length) {
       this.filter.customFilter = this.customFilter;
     } else {
@@ -85,5 +86,10 @@ export class ViewComponent implements OnInit {
     this.filter.sortDescending = (sortInfo.direction === 'desc');
     this.filter.startRow = 0;
     this.loadData();
+  }
+
+  select(row:any) {
+    this.selectedRowId = row.id;
+    console.log(row);
   }
 }
