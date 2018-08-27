@@ -19,6 +19,7 @@ export class QueryService {
 
 
   static serviceUrl = '/Client/Data/View';
+  static loadUrl    = '/Client/Data/Crud/Get';
 
   constructor(private trans: TransportService) { }
 
@@ -33,7 +34,7 @@ export class QueryService {
           for (let i = 0; i < row.columnValues.length; i++) {
             const val = row.columnValues[i];
             if (QueryService.ISO_CHECK.test(val)) {
-              const datePipe = new DatePipe('is');             
+              const datePipe = new DatePipe('is');
               row.values[result.metaInfo.columns[i].mappedObjectName] = datePipe.transform(new Date(val), 'short');
             } else {
               row.values[result.metaInfo.columns[i].mappedObjectName] = val;
@@ -42,6 +43,11 @@ export class QueryService {
         }
       return result;
     }));
+  }
+
+  public loadDocument(id: string): Observable<any> {
+    const queryUrl = QueryService.loadUrl + '/' + id;
+    return this.trans.get(queryUrl, {});
   }
 
   public getFilter(docType?: number, customFilter?: any): DocumentFilter {

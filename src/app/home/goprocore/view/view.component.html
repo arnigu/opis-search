@@ -18,7 +18,7 @@
   <mat-header-row *matHeaderRowDef="loadColumns; sticky: true"></mat-header-row>
   <mat-row *matRowDef="let row; columns: loadColumns;" 
            [ngClass]="{'highlight': selectedRowId == row.id}"
-           (click)="select(row)"></mat-row>
+           (click)="onSelect(row)"></mat-row>
 </mat-table>
 <mat-paginator [length]="maxRows" [pageSize]="rowsCount" showFirstLastButtons="true" (page)="changePage($event)"></mat-paginator>
 <ng-template #no_results>Enter a search criteria</ng-template>

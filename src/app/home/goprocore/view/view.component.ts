@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, EventEmitter, Output } from '@angular/core';
 import { QueryService } from '@app/modules/core/services/query/query.service';
 import { DocumentFilter } from '@app/modules/core/models/documentfilter';
 
@@ -21,6 +21,7 @@ export class ViewComponent implements OnInit {
   @Input() public rowsCount: number;
   @Input() customFilter: any = undefined;
 
+  @Output() select: EventEmitter<string> = new EventEmitter();
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -88,8 +89,13 @@ export class ViewComponent implements OnInit {
     this.loadData();
   }
 
-  select(row:any) {
-    this.selectedRowId = row.id;
-    console.log(row);
+  onSelect(row: any) {
+    if (this.selectedRowId === row.id) {
+      this.selectedRowId = undefined;
+      this.select.emit(undefined);
+    } else {
+      this.selectedRowId = row.id;
+      this.select.emit(row.id);
+    }
   }
 }

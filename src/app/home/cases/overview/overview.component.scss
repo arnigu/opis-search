@@ -13,3 +13,18 @@
   ::ng-deep .mat-column-responseCount {
     flex: 0 0 50px;
   }
+
+  #caseboard{
+    display:flex;
+    flex-wrap: wrap;
+    align-content: flex-start;    
+  }
+
+  #caseboard>app-view{
+    flex: 1;   
+  }
+
+  #caseboard>div{
+    width: 350px;  /* Or whatever */
+    margin:10px;    
+  }
