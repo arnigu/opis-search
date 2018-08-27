@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { QueryService } from '@app/modules/core/services/query/query.service';
+import { ViewComponent } from '@app/home/goprocore/view/view.component';
 
 @Component({
   selector: 'app-overview',
@@ -18,6 +19,10 @@ export class OverviewComponent implements OnInit {
   columns = ['documentNumber', 'subject', 'deadline', 'creationDate'];
 
   customFilter: any = {};
+  topParentFilter = {'_type': 'BinaryFilterExpressionType',
+                     'propertyName': '_topParentID', 'operator': 0, 'value': undefined};
+
+  @ViewChild('responses') resposeView: ViewComponent;
 
   constructor(private query: QueryService) { }
 
@@ -32,8 +37,10 @@ export class OverviewComponent implements OnInit {
     if (!caseId) {
       this.caseDoc = undefined;
     } else {
+      this.topParentFilter.value = caseId;
       this.query.loadDocument(caseId).subscribe((data) => {
         this.caseDoc = data;
+        this.resposeView.loadData();
       });
     }
   }
