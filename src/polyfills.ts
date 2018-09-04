@@ -79,3 +79,6 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  */
 
 import 'url-search-params-polyfill';
+
+// Add global to window, assigning the value of window itself.
+(window as any).global = window;

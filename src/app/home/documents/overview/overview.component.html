@@ -1,4 +1,10 @@
-<app-view [documentType]="1002" [loadOnDisplay]="true" [loadColumns]="columns" 
-          sortColumn="creationDate" sortDescending="true" rowsCount="75">
-    
+<mat-card *ngIf="document && document['_type']=='ExternalDocumentType'">
+    <mat-card-title>{{document.subject}}</mat-card-title>
+    <mat-card-subtitle>{{document.documentNumber}} - {{document.currentVersion.attachment.fileName}} - {{document.modifiedDate | date : 'medium'}}</mat-card-subtitle>
+    <button mat-raised-button (click)="editDocument(document)">Edit...</button>
+    <button mat-raised-button (click)="openDocument(document)">Open...</button>
+    <button mat-raised-button (click)="launchLocal()">Launch...</button>
+</mat-card>
+<app-view [documentType]="1025" [loadOnDisplay]="true" [loadColumns]="columns" 
+          sortColumn="creationDate" sortDescending="true" rowsCount="75" (select)="onSelect($event)">    
 </app-view>

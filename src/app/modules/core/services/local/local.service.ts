@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import * as io from 'socket.io-client';
 
@@ -11,12 +12,15 @@ export class LocalService {
 
   socket: SocketIOClient.Socket;
 
-  constructor() {
+  constructor(@Inject(DOCUMENT) private document) {
     console.log('Connecting to local');
     this.socket = io.connect(LOCAL_SOCKET_URL);
 
     this.socket.on('connect', () => {
-      console.log('connected');
+      //
+      // Provide token
+      const token = localStorage.getItem('token');
+      this.setToken(token);
     });
 
     this.socket.on('disconnectd', () => {
@@ -32,6 +36,16 @@ export class LocalService {
 
   }
 
+  setToken (token: string) {
+      this.socket.emit('user.token', token, (data) => {
+        console.log('Token was sent', token, data);
+      });
+  }
+
+  start () {
+    this.callUrlHandler('Launch', 'Local');
+  }
+
   editDocument(id: string) {
     this.socket.emit('document.edit', id, (result) => {
       console.log(result);
@@ -43,6 +57,27 @@ export class LocalService {
     this.socket.emit('document.open', id, (result) => {
       console.log(result);
     });
+  }
+
+  private callUrlHandler(action: string, documentId: string) {
+    const url = 'goprodesktophelper://' + action + '/' + documentId;
+
+    const child = document.createElement('iframe');
+    child.src = url;
+    child.height = '0px';
+    child.style.display = 'none';
+
+    console.log('appending', child);
+    document.body.appendChild(child);
+    /*
+    this.renderer.appendChild(this.elementRef.nativeElement, child);
+    document.body).append(
+        $('<iframe/>', {
+            'height' : '0px',
+            'src': url
+        }).css({ 'display' : 'none' })
+    );
+    */
   }
 
 }
