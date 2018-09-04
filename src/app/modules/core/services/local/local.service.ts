@@ -10,6 +10,7 @@ const LOCAL_SOCKET_URL = 'https://local.gopro.net:48833';
 })
 export class LocalService {
 
+  connected = false;
   socket: SocketIOClient.Socket;
 
   constructor(@Inject(DOCUMENT) private document) {
@@ -19,6 +20,7 @@ export class LocalService {
     this.socket.on('connect', () => {
       //
       // Provide token
+      this.connected = true;
       const token = localStorage.getItem('token');
       this.setToken(token);
     });
@@ -31,9 +33,6 @@ export class LocalService {
     this.socket.on('event', (type, data) => {
       console.log(event, type, data);
     });
-
-
-
   }
 
   setToken (token: string) {
@@ -43,7 +42,9 @@ export class LocalService {
   }
 
   start () {
-    this.callUrlHandler('Launch', 'Local');
+    if (!this.connected) {
+      this.callUrlHandler('Launch', 'Local');
+    }
   }
 
   editDocument(id: string) {
