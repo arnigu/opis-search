@@ -10,7 +10,7 @@ import { LocalService } from '@app/modules/core/services/local/local.service';
 })
 export class OverviewComponent implements OnInit {
 
-  private document: any;
+  document: any;
   private documentId: string;
 
   @ViewChild(ViewComponent) child: ViewComponent;
