@@ -1,9 +1,11 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {environment} from '@env/environment';
 
 import * as io from 'socket.io-client';
 
 const LOCAL_SOCKET_URL = 'https://local.gopro.net:48833';
+const GOPRO_ENDPOINT = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ export class LocalService {
 
   connected = false;
   socket: SocketIOClient.Socket;
+
+  
 
   constructor(@Inject(DOCUMENT) private document) {
     console.log('Connecting to local');
@@ -36,7 +40,8 @@ export class LocalService {
   }
 
   setToken (token: string) {
-      this.socket.emit('user.token', token, (data) => {
+    const payload = {'endpoint' : GOPRO_ENDPOINT, 'token' : token};
+      this.socket.emit('user.token', payload, (data) => {
         console.log('Token was sent', token, data);
       });
   }
