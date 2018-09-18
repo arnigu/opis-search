@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   authmode: 'token',
-  baseUrl: 'https://opis.gopro.net/katla/api'
+  baseUrl: 'http://localhost:8080/GoPro/api'
   /*baseUrl: 'https://rio.gopro.net/GoPro/api'*/
 };
 

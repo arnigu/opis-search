@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import {environment} from '@env/environment';
+import { environment } from '@env/environment';
 
 import * as io from 'socket.io-client';
 
@@ -12,15 +12,19 @@ const GOPRO_ENDPOINT = environment.baseUrl;
 })
 export class LocalService {
 
+  launched = false;
   connected = false;
+
   socket: SocketIOClient.Socket;
 
-  
-
   constructor(@Inject(DOCUMENT) private document) {
-    console.log('Connecting to local');
-    this.socket = io.connect(LOCAL_SOCKET_URL);
 
+    //
+    // Attemt connection on initialization
+    this.connect();
+
+    //
+    // Register handlers
     this.socket.on('connect', () => {
       //
       // Provide token
@@ -29,26 +33,52 @@ export class LocalService {
       this.setToken(token);
     });
 
-    this.socket.on('disconnectd', () => {
+    this.socket.on('disconnect', () => {
+      this.connected = false;
       console.log('disconnected');
     });
 
     // Monitor events from GoPro Local
     this.socket.on('event', (type, data) => {
-      console.log(event, type, data);
+      console.log('Event', event, type, data);
     });
   }
 
-  setToken (token: string) {
-    const payload = {'endpoint' : GOPRO_ENDPOINT, 'token' : token};
-      this.socket.emit('user.token', payload, (data) => {
-        console.log('Token was sent', token, data);
-      });
+  connect(timeout = 2) {
+    console.log('Connecting to local');
+    if ( !this.socket ) {
+      this.socket = io.connect(LOCAL_SOCKET_URL);
+    } else {
+      this.socket.connect();
+    }
+
+    setTimeout(() => {
+      if (!this.connected) {
+        console.log('Failed to connect within ' + timeout + ' secs: Need to launch?');
+        this.socket.disconnect();
+      } else {
+        console.log('GoPro Local was connected!');
+      }
+    }, timeout * 1000);
   }
 
-  start () {
-    if (!this.connected) {
+  setToken(token: string) {
+    const payload = { 'endpoint': GOPRO_ENDPOINT, 'token': token };
+    this.socket.emit('user.token', payload, (data) => {
+      console.log('Token was sent', token, data);
+    });
+  }
+
+  start() {
+    if (!this.connected && !this.launched) {
+      this.launched = true;
+      console.log('Starting GoPro Local with URL handler!');
       this.callUrlHandler('Launch', 'Local');
+      this.connect(15);
+    } else if ( this.connected ) {
+      console.log('GoPro Local is already connected!');
+    } else if (this.launched) {
+      console.log('Launch attempt has already been made. Try to start it from Start menu.');
     }
   }
 
@@ -56,7 +86,6 @@ export class LocalService {
     this.socket.emit('document.edit', id, (result) => {
       console.log(result);
     });
-
   }
 
   openDocument(id: string) {
@@ -65,25 +94,21 @@ export class LocalService {
     });
   }
 
-  private callUrlHandler(action: string, documentId: string) {
-    const url = 'goprodesktophelper://' + action + '/' + documentId;
 
+
+  private callUrlHandler(action: string, documentId: string) {
+
+    //
+    // Create hidden iframe to desktop helper
+    const url = 'goprodesktophelper://' + action + '/' + documentId;
     const child = document.createElement('iframe');
     child.src = url;
     child.height = '0px';
     child.style.display = 'none';
 
-    console.log('appending', child);
+    //
+    // Add it to tbe body
     document.body.appendChild(child);
-    /*
-    this.renderer.appendChild(this.elementRef.nativeElement, child);
-    document.body).append(
-        $('<iframe/>', {
-            'height' : '0px',
-            'src': url
-        }).css({ 'display' : 'none' })
-    );
-    */
   }
 
 }
