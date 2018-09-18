@@ -30,7 +30,21 @@ export class LocalService {
       // Provide token
       this.connected = true;
       const token = localStorage.getItem('token');
-      this.setToken(token);
+
+      this.getConfig( (data) => {
+        if (data && data.status === 'error' )   {
+          const newdata = {endpoint: GOPRO_ENDPOINT, user: '****', password: '****', managed: true};
+          this.setConfig(newdata, (res) => {
+            setTimeout(() => {
+              console.log('Sending token after setConfig');
+              this.setToken(token);
+            }, 2000);
+          });
+        } else {
+          this.setToken(token);
+        }
+      });
+
     });
 
     this.socket.on('disconnect', () => {
@@ -68,6 +82,16 @@ export class LocalService {
       console.log('Token was sent', token, data);
     });
   }
+
+  getConfig(callBack) {
+    this.socket.emit('config.read', callBack);
+  }
+
+  setConfig(config: any, callBack) {
+    console.log('Sending config', config);
+    this.socket.emit('config.write', config, callBack);
+  }
+
 
   start() {
     if (!this.connected && !this.launched) {
