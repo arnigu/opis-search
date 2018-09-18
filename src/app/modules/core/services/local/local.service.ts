@@ -3,9 +3,10 @@ import { DOCUMENT } from '@angular/common';
 import {environment} from '@env/environment';
 
 import * as io from 'socket.io-client';
+import { Observable, of} from 'rxjs';
 
 const LOCAL_SOCKET_URL = 'https://local.gopro.net:48833';
-const GOPRO_ENDPOINT = environment.baseUrl;
+const GOPRO_ENDPOINT   = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,6 @@ export class LocalService {
   connected = false;
   socket: SocketIOClient.Socket;
 
-  
-
   constructor(@Inject(DOCUMENT) private document) {
     console.log('Connecting to local');
     this.socket = io.connect(LOCAL_SOCKET_URL);
@@ -25,6 +24,8 @@ export class LocalService {
       //
       // Provide token
       this.connected = true;
+
+
       const token = localStorage.getItem('token');
       this.setToken(token);
     });
@@ -46,6 +47,22 @@ export class LocalService {
       });
   }
 
+  isValid(): Observable<boolean> {
+
+    const isLocalValid = new Observable<boolean>(observer => {
+      //
+      // GetConfig and connectivity info
+      this.socket.emit('config.read', (data) => {
+        const valid = (data.endpoint === GOPRO_ENDPOINT);
+        console.log('Valid', data.endpoint, valid);
+        observer.next(valid);
+      });
+    });
+
+
+    return isLocalValid;
+  }
+
   start () {
     if (!this.connected) {
       this.callUrlHandler('Launch', 'Local');
@@ -56,7 +73,6 @@ export class LocalService {
     this.socket.emit('document.edit', id, (result) => {
       console.log(result);
     });
-
   }
 
   openDocument(id: string) {
@@ -68,22 +84,13 @@ export class LocalService {
   private callUrlHandler(action: string, documentId: string) {
     const url = 'goprodesktophelper://' + action + '/' + documentId;
 
+    //
+    // Append a hidden ifram element to invoke start of GoProLocal
     const child = document.createElement('iframe');
     child.src = url;
     child.height = '0px';
     child.style.display = 'none';
-
-    console.log('appending', child);
     document.body.appendChild(child);
-    /*
-    this.renderer.appendChild(this.elementRef.nativeElement, child);
-    document.body).append(
-        $('<iframe/>', {
-            'height' : '0px',
-            'src': url
-        }).css({ 'display' : 'none' })
-    );
-    */
   }
 
 }
