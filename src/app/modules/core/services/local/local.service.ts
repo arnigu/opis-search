@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import {environment} from '@env/environment';
+import { environment } from '@env/environment';
 
 import * as io from 'socket.io-client';
 import { Observable, of} from 'rxjs';
@@ -13,13 +13,19 @@ const GOPRO_ENDPOINT   = environment.baseUrl;
 })
 export class LocalService {
 
+  launched = false;
   connected = false;
+
   socket: SocketIOClient.Socket;
 
   constructor(@Inject(DOCUMENT) private document) {
-    console.log('Connecting to local');
-    this.socket = io.connect(LOCAL_SOCKET_URL);
 
+    //
+    // Attemt connection on initialization
+    this.connect();
+
+    //
+    // Register handlers
     this.socket.on('connect', () => {
       //
       // Provide token
@@ -27,24 +33,66 @@ export class LocalService {
 
 
       const token = localStorage.getItem('token');
-      this.setToken(token);
+
+      this.getConfig( (data) => {
+        if (data && data.status === 'error' )   {
+          const newdata = {endpoint: GOPRO_ENDPOINT, user: '****', password: '****', managed: true};
+          this.setConfig(newdata, (res) => {
+            setTimeout(() => {
+              console.log('Sending token after setConfig');
+              this.setToken(token);
+            }, 2000);
+          });
+        } else {
+          this.setToken(token);
+        }
+      });
+
     });
 
-    this.socket.on('disconnectd', () => {
+    this.socket.on('disconnect', () => {
+      this.connected = false;
       console.log('disconnected');
     });
 
     // Monitor events from GoPro Local
     this.socket.on('event', (type, data) => {
-      console.log(event, type, data);
+      console.log('Event', event, type, data);
     });
   }
 
-  setToken (token: string) {
-    const payload = {'endpoint' : GOPRO_ENDPOINT, 'token' : token};
-      this.socket.emit('user.token', payload, (data) => {
-        console.log('Token was sent', token, data);
-      });
+  connect(timeout = 2) {
+    console.log('Connecting to local');
+    if ( !this.socket ) {
+      this.socket = io.connect(LOCAL_SOCKET_URL);
+    } else {
+      this.socket.connect();
+    }
+
+    setTimeout(() => {
+      if (!this.connected) {
+        console.log('Failed to connect within ' + timeout + ' secs: Need to launch?');
+        this.socket.disconnect();
+      } else {
+        console.log('GoPro Local was connected!');
+      }
+    }, timeout * 1000);
+  }
+
+  setToken(token: string) {
+    const payload = { 'endpoint': GOPRO_ENDPOINT, 'token': token };
+    this.socket.emit('user.token', payload, (data) => {
+      console.log('Token was sent', token, data);
+    });
+  }
+
+  getConfig(callBack) {
+    this.socket.emit('config.read', callBack);
+  }
+
+  setConfig(config: any, callBack) {
+    console.log('Sending config', config);
+    this.socket.emit('config.write', config, callBack);
   }
 
   isValid(): Observable<boolean> {
@@ -64,8 +112,15 @@ export class LocalService {
   }
 
   start () {
-    if (!this.connected) {
+    if (!this.connected && !this.launched) {
+      this.launched = true;
+      console.log('Starting GoPro Local with URL handler!');
       this.callUrlHandler('Launch', 'Local');
+      this.connect(15);
+    } else if ( this.connected ) {
+      console.log('GoPro Local is already connected!');
+    } else if (this.launched) {
+      console.log('Launch attempt has already been made. Try to start it from Start menu.');
     }
   }
 
@@ -81,15 +136,20 @@ export class LocalService {
     });
   }
 
+
+
   private callUrlHandler(action: string, documentId: string) {
-    const url = 'goprodesktophelper://' + action + '/' + documentId;
 
     //
-    // Append a hidden ifram element to invoke start of GoProLocal
+    // Create hidden iframe to desktop helper
+    const url = 'goprodesktophelper://' + action + '/' + documentId;
     const child = document.createElement('iframe');
     child.src = url;
     child.height = '0px';
     child.style.display = 'none';
+
+    //
+    // Add it to tbe body
     document.body.appendChild(child);
   }
 
