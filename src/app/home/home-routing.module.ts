@@ -27,6 +27,10 @@ const routes: Routes = [
         path: 'lists',
         loadChildren: './lists/lists.module#ListsModule'
       },
+      {
+        path: 'categories',
+        loadChildren: './admin/categories/categories.module#CategoriesModule'
+      },
       { path: '', redirectTo: '/cases', pathMatch: 'full' },
     ]
   }

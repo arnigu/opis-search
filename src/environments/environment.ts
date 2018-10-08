@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
   authmode: 'token',
-  baseUrl: 'http://localhost:8080/GoPro/api'
+  baseUrl: 'http://safi.gopro.net/atpsal/api'
   /*baseUrl: 'https://rio.gopro.net/GoPro/api'*/
 };
 

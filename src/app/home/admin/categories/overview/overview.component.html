@@ -1,0 +1,7 @@
+<mat-card *ngIf="document && document['_type']=='CategoryType'">
+    <mat-card-title>{{document.subject}}</mat-card-title>    
+</mat-card>
+<app-view [documentType]="1013" [loadOnDisplay]="true" [loadColumns]="['subject', 'key']" 
+          sortColumn="subject" sortDescending="false" rowsCount="10"
+          [customFilter]="customFilter" (select)="onSelect($event)">JOKER    
+</app-view>
