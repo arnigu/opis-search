@@ -1,0 +1,29 @@
+pre {
+  border: 1px solid black;
+  padding: 5px;
+
+  background-color: #FCFDFC;
+  background-repeat: repeat-y;
+  background-position: 0 -1rem;
+  background-size: auto 4rem;
+  
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAABlBMVEX///////9VfPVsAAAAAnRSTlMAuyogpzwAAABJSURBVHhehcCxEQJBCADAhSEgJLCA+xkLwc4+MDC0ZEtwAb2rYdWbc3iEcRZgdEJ5QQKe/oPUjL0LIZhdBFfMqHRDca709QnwA8AYBjw1mzYyAAAAAElFTkSuQmCC);
+
+}
+
+pre, code {
+  font-family: monospace, monospace;
+
+  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg width='1200' height='256' viewBox='0 0 1200 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.3,.1'%3E%3C/feTurbulence%3E%3C/filter%3E%3C/defs%3E%3Crect height='256' width='1200' filter='url(%23noise)' opacity='.1'/%3E%3C/svg%3E");
+}
+
+pre {
+  overflow: auto;
+}
+
+pre>code {
+  display: block;
+  padding: 1rem;
+  word-wrap: normal;
+}
+

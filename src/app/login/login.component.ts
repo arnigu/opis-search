@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
+        document.body.classList.add('bg');
         // read returnUrl from queryParameters if available
         this.route.queryParams.subscribe((qParams: Params) => {
           this.returnUrl = qParams['returnUrl'];

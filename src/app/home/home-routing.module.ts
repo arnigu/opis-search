@@ -31,6 +31,10 @@ const routes: Routes = [
         path: 'categories',
         loadChildren: './admin/categories/categories.module#CategoriesModule'
       },
+      {
+        path: 'guidance',
+        loadChildren: './admin/guidance/guidance.module#GuidanceModule'
+       },
       { path: '', redirectTo: '/cases', pathMatch: 'full' },
     ]
   }

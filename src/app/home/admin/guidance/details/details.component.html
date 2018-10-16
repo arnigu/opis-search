@@ -1,0 +1,12 @@
+<!-- Formatting here: 
+  https://www.sitepoint.com/best-practice-for-code-examples/
+  https://websemantics.uk/articles/displaying-code-in-web-pages/
+-->
+<h1 *ngIf="!document">Loading..</h1>
+<div #guidanceDoc>
+  <h1>{{document?.subject}}</h1>
+  
+  <h2>Script</h2>
+  <pre><code contenteditable="true" class="language-javascript">{{document.script}}</code></pre>
+  
+</div>
