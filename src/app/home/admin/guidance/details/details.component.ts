@@ -9,7 +9,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class DetailsComponent implements OnInit {
 
-  private document: any;
+  public document: any;
 
   constructor(private query: QueryService, private activatedRoute: ActivatedRoute) { }
 
