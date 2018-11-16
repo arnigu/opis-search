@@ -1,30 +1,30 @@
 export class DocumentFilter {
-   private _type = 'DocumentFilterType';
-   public documentFormType = 1002;
+    private _type = 'DocumentFilterType';
+    public documentFormType = 1002;
 
-   public subject: string;
+    public subject: string;
 
-   public startRow = 0;
-   public rowsCount = 20;
+    public startRow = 0;
+    public rowsCount = 20;
 
-   public sortColumn = '_creationDate';
-   public sortDescending = true;
+    public sortColumn = '_creationDate';
+    public sortDescending = true;
 
-   public loadColumns: string[];
+    public loadColumns: string[];
 
-   public fullTextSearch: string;
-   public dataLoadingOptions = 0;
+    public fullTextSearch: string;
+    public dataLoadingOptions = 0;
 
-   public customFilter: any;
+    public customFilter: any;
 
 
-   //
-   // Create it
-   constructor(options: any = {}) {
+    //
+    // Create it
+    constructor(options: any = {}) {
         this.dataLoadingOptions = options.dataLoadingOptions || this.dataLoadingOptions;
         this.documentFormType = options.documentFormType || this.documentFormType;
         this.sortColumn = options.sortColumn || this.sortColumn;
-   }
+    }
 }
 
 export class BinaryFilterExpression {
@@ -36,7 +36,7 @@ export class BinaryFilterExpression {
 
         if (value && value.constructor === Array) {
             this.inValues = value;
-        } else{
+        } else {
             this.value = value;
         }
     }

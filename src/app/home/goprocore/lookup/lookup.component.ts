@@ -45,7 +45,7 @@ export class LookupComponent implements OnInit {
         })
         ).subscribe((dataset) => {
           const newOptions: any[] = [];
-          for (const row of dataset.data.rows){
+          for (const row of dataset.data.rows) {
             newOptions.push({name: row.columnValues[0]});
           }
           this.filteredOptions = newOptions;
