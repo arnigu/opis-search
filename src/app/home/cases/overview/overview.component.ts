@@ -10,7 +10,7 @@ import { DocumentFilter } from '@app/modules/core/models/documentfilter';
 })
 export class OverviewComponent implements OnInit {
 
-  lookupFilter = new DocumentFilter({dataLoadingOptions: 8, documentFormType: 1009, sortColumn: '_subject'});
+  lookupFilter = new DocumentFilter({dataLoadingOptions: 8, documentFormType: 1009, sortColumn: '_subject', rowsCount: 3});
 
   foundResults = 0;
   maxResults = 0;

@@ -25,6 +25,7 @@ export class DocumentFilter {
         this.dataLoadingOptions = options.dataLoadingOptions || this.dataLoadingOptions;
         this.documentFormType = options.documentFormType || this.documentFormType;
         this.sortColumn = options.sortColumn || this.sortColumn;
+        this.rowsCount = options.rowsCount || this.rowsCount;
     }
 }
 

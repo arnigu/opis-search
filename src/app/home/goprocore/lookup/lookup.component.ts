@@ -49,6 +49,9 @@ export class LookupComponent implements OnInit {
             newOptions.push({name: row.columnValues[0]});
           }
           this.filteredOptions = newOptions;
+          if(dataset.data.maxResults>dataset.data.rowsCount){
+            console.log('Only showing '+dataset.data.rowsCount+' of '+dataset.data.maxResults+' items in list'):
+          }
       });
 
   }
