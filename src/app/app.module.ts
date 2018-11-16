@@ -28,7 +28,7 @@ import localeFr from '@angular/common/locales/fr';
 })
 export class AppModule {
 
-  constructor(){
+  constructor() {
     // the second parameter 'fr' is optional
     registerLocaleData(localeIs);
     registerLocaleData(localeFr);

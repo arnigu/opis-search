@@ -3,7 +3,7 @@ import { TransportService } from '@app/modules/core/services/transport/transport
 import { DocumentFilter } from '@app/modules/core/models/documentfilter';
 
 
-import {Observable, throwError} from 'rxjs';
+import {Observable} from 'rxjs';
 
 import { map } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
