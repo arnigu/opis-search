@@ -1,6 +1,6 @@
 export class DocumentFilter {
-   private _type = 'DocumentFilterType';
-   public documentFormType = 1002;
+   private _type: string = 'DocumentFilterType';
+   public documentFormType: number = 1002;
 
    public subject: string;
 
@@ -10,6 +10,7 @@ export class DocumentFilter {
    public sortColumn = '_creationDate';
    public sortDescending = true;
 
+   public filterDocumentID: string[];
    public loadColumns: string[];
 
    public fullTextSearch: string;
