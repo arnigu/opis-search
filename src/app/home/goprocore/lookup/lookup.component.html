@@ -1,0 +1,15 @@
+<br/>
+<div class="example-form" [formGroup]='optionsForm'>
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Choose a thing" [matAutocomplete]="auto" formControlName='optionInput'>
+  </mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+  <ng-container>
+    <mat-option *ngFor="let opt of filteredOptions" [value]="option">
+      <span>{{ opt.name }}</span>      
+    </mat-option>
+  </ng-container>
+</mat-autocomplete>
+</div>
+<br/>

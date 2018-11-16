@@ -15,9 +15,10 @@ import {
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {OverlayModule} from '@angular/cdk/overlay';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatTreeModule,
     MatCardModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
   ],
   declarations: [],
   exports: [
@@ -68,7 +70,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatTreeModule,
     MatCardModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatAutocompleteModule
   ]
 })
 export class SharedModule {

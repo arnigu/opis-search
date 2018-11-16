@@ -20,7 +20,11 @@ export class DocumentFilter {
 
    //
    // Create it
-   constructor() {}
+   constructor(options: any = {}) {
+        this.dataLoadingOptions = options.dataLoadingOptions || this.dataLoadingOptions;
+        this.documentFormType = options.documentFormType || this.documentFormType;
+        this.sortColumn = options.sortColumn || this.sortColumn;
+   }
 }
 
 export class BinaryFilterExpression {
