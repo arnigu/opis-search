@@ -1,30 +1,25 @@
-<app-lookup [filter]="lookupFilter">
-
-</app-lookup>
-
 <div id="caseboard">
-    <app-view [documentType]="1005" [loadOnDisplay]="true" [loadColumns]="columns" 
+    <app-view [documentType]="1005" [loadOnDisplay]="true" [loadColumns]="columns"
             [rowsCount]="10"
             [sortColumn]="'creationDate'" [sortDescending]="true"
             [customFilter]="customFilter" title="Cases" (select)="onSelect($event)">
     </app-view>
     <div>
-        <mat-card *ngIf="caseDoc">        
+        <mat-card *ngIf="caseDoc">
                 <mat-card-title>{{caseDoc.subject}}</mat-card-title>
                 <mat-card-subtitle>{{caseDoc.documentNumber}} -  {{caseDoc.status.name}}</mat-card-subtitle>
-                <mat-card-content>              
+                <mat-card-content>
                         Lead: <b>{{caseDoc.responsibleEmployee?.name}}</b>
                         <mat-list dense *ngIf="caseDoc.coResponsibleEmployees">
                             <mat-list-item *ngFor="let coResp of caseDoc.coResponsibleEmployees"> {{coResp.name}} </mat-list-item>
-                        </mat-list>                                  
+                        </mat-list>
                 </mat-card-content>
                 <app-view #responses documentType="1003" [loadColumns]="['subject']" rowsCount="7" [loadOnDisplay]="true" [customFilter]="topParentFilter"></app-view>
                 <mat-card-actions>
-                    <button mat-button>Close</button>            
+                    <button mat-button>Close</button>
                 </mat-card-actions>
         </mat-card>
     </div>
 </div>
 
-   
-   
+

@@ -12,6 +12,8 @@ export class OverviewComponent implements OnInit {
 
   lookupFilter = new DocumentFilter({dataLoadingOptions: 8, documentFormType: 1009, sortColumn: '_subject', rowsCount: 3});
 
+  lookupFilter2 = new DocumentFilter({dataLoadingOptions: 8, documentFormType: 1005, sortColumn: '_subject', rowsCount: 10});
+
   foundResults = 0;
   maxResults = 0;
 

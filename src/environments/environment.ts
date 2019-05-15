@@ -6,8 +6,7 @@
 export const environment = {
   production: false,
   authmode: 'token',
-  baseUrl: 'http://safi.gopro.net/atpsal/api'
-  /*baseUrl: 'https://rio.gopro.net/GoPro/api'*/
+  baseUrl: 'https://rio.gopro.net/GoPro/api'
 };
 
 /*

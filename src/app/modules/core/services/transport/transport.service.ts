@@ -9,8 +9,7 @@ import {environment} from '@env/environment';
 })
 export class TransportService {
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   post(url: string, data: any): Observable<any> {
     const headers: HttpHeaders = this.prepareHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
@@ -33,11 +32,6 @@ export class TransportService {
     for (const key of Object.keys(data || {})) {
       formData.append(key, JSON.stringify(data[key]));
     }
-
-
-    //  return this.http.post(endpoint, formData, { headers: headers});
-
-
     return this.http.post(endpoint, body.toString(), {headers: headers});
   }
 

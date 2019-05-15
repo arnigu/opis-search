@@ -50,7 +50,7 @@ export class LookupComponent implements OnInit {
           }
           this.filteredOptions = newOptions;
           if(dataset.data.maxResults>dataset.data.rowsCount){
-            console.log('Only showing '+dataset.data.rowsCount+' of '+dataset.data.maxResults+' items in list'):
+            console.log('Only showing '+dataset.data.rowsCount+' of '+dataset.data.maxResults+' items in list');
           }
       });
 

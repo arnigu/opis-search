@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router' ;
 import { OverviewComponent } from '@app/home/cases/overview/overview.component';
 
 const routes: Routes = [
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CasesRoutingModule { }
+export class CasesRoutingModule {}
